@@ -1,1 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weather App</title>
+  <!-- <link rel="stylesheet" href="weather.css" /> -->
+  <style>
+    :root {
+  --bg: #071026;
+  --card: #0b1220;
+  --accent: #06b6d4;
+  --muted: #9aa4b2;
+  --white: #e6eef6;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+}
+
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #002252;
+  color: var(--white)
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px
+}
+
+.card {
+  width: min(920px, 96%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.top {
+  display: flex;
+  gap: 12px;
+  align-items: center
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px
+}
+
+.lead {
+  margin: 2px 0 8px;
+  color: var(--muted)
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px
+}
+
+.search input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: transparent;
+  color: inherit;
+  outline: none
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 0;
+  background: linear-gradient(90deg, var(--accent), #7c3aed);
+  color: white;
+  font-weight: 600;
+  cursor: pointer
+}
+
+.status {
+  margin-top: 12px;
+  color: var(--muted)
+}
+
+.hidden {
+  display: none
+}
+
+.result {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03)
+}
+
+.row {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start
+}
+
+.left {
+  flex: 1
+}
+
+.right {
+  width: 240px
+}
+
+.city {
+  font-size: 18px
+}
+
+.meta {
+  color: var(--muted);
+  margin-bottom: 8px
+}
+
+.temp-row {
+  display: flex;
+  align-items: center;
+  gap: 12px
+}
+
+.temp {
+  font-family: ui-monospace, monospace;
+  font-size: 48px;
+  font-weight: 700
+}
+
+.icon-wrap img {
+  width: 88px;
+  height: 88px
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+  color: var(--muted)
+}
+
+.map {
+  height: 140px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--muted)
+}
+
+.small {
+  font-size: 13px;
+  color: var(--muted)
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0
+}
+
+@media (max-width:720px) {
+  .row {
+    flex-direction: column
+  }
+
+  .right {
+    width: 100%
+  }
+}
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="title">
+    <header class="top">
+      <!-- User-uploaded image used as logo/header image -->
+
+      <div>
+        <h1 id="title">Day 1: Weather App</h1>
+        <p class="lead">Fetch real-time weather for any city using an API (OpenWeatherMap).</p>
+      </div>
+    </header>
+
+    <section class="search">
+      <label class="sr-only" for="city">City</label>
+      <input id="city" type="search" placeholder="Enter city (e.g. London)" autocomplete="off" />
+      <button id="searchBtn" class="btn">Search</button>
+    </section>
+
+    <section id="result" class="result hidden" aria-live="polite">
+      <div class="row">
+        <div class="left">
+          <h2 id="cityName">—</h2>
+          <div class="meta">
+            <span id="desc">—</span> · <span id="localTime">—</span>
+          </div>
+          <div class="temp-row">
+            <div class="temp">
+              <span id="temp">—</span><small>°C</small>
+            </div>
+            <div class="icon-wrap">
+              <img id="icon" src="" alt="" />
+            </div>
+          </div>
+
+          <div class="stats">
+            <div>Humidity: <strong id="humidity">—</strong>%</div>
+            <div>Wind: <strong id="wind">—</strong> m/s</div>
+            <div>Sunrise: <strong id="sunrise">—</strong></div>
+            <div>Sunset: <strong id="sunset">—</strong></div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div id="mapPlaceholder" class="map">Map / extra content</div>
+        </div>
+      </div>
+    </section>
+
+    <div id="status" class="status muted">Enter a city and press Search.</div>
+
+    <details style="margin-top:14px">
+      <summary>How it works (short)</summary>
+      <p class="small">`script.js` builds the API URL, fetches the current weather JSON, extracts relevant fields and updates the DOM. It uses `async/await`, handles common errors, and formats times using the timezone offset returned by the API.</p>
+    </details>
+  </main>
+
+  <script>
+    // Day 1 — Weather App
+// Replace with your OpenWeatherMap API key:
+const API_KEY = '7bf3f09e01f4eabee9483d21e48df0ed'; // <-- get a free key at openweathermap.org
+const ENDPOINT = 'https://api.openweathermap.org/data/2.5/weather';
+
+// DOM refs
+const cityInput = document.getElementById('city');
+const searchBtn = document.getElementById('searchBtn');
+const statusEl = document.getElementById('status');
+
+const resultSection = document.getElementById('result');
+const cityNameEl = document.getElementById('cityName');
+const descEl = document.getElementById('desc');
+const tempEl = document.getElementById('temp');
+const iconEl = document.getElementById('icon');
+const humidityEl = document.getElementById('humidity');
+const windEl = document.getElementById('wind');
+const sunriseEl = document.getElementById('sunrise');
+const sunsetEl = document.getElementById('sunset');
+const localTimeEl = document.getElementById('localTime');
+
+// helpers
+function setStatus(msg, isError = false) {
+  statusEl.textContent = msg;
+  statusEl.style.color = isError ? '#ffbaba' : '';
+}
+
+function showResult() {
+  resultSection.classList.remove('hidden');
+}
+function hideResult() {
+  resultSection.classList.add('hidden');
+}
+
+// format unix timestamp + timezone offset to local time string
+function formatTime(tsSeconds, tzOffsetSeconds) {
+  // tsSeconds is in UTC, tzOffsetSeconds is offset from UTC in seconds
+  const d = new Date((tsSeconds + tzOffsetSeconds) * 1000);
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+// format local time in city using timezone offset
+function cityLocalTime(tzOffsetSeconds) {
+  const nowUtcSec = Math.floor(Date.now() / 1000);
+  return formatTime(nowUtcSec, tzOffsetSeconds);
+}
+
+// build icon URL from OpenWeatherMap
+function iconUrl(iconCode) {
+  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+}
+
+// fetch weather for a city
+async function fetchWeather(city) {
+  try {
+    setStatus('Loading…');
+    hideResult();
+    const url = `${ENDPOINT}?q=${encodeURIComponent(city)}&units=metric&appid=${API_KEY}`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      if (res.status === 404) throw new Error('City not found');
+      throw new Error(`Network error ${res.status}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    throw err;
+  }
+} 
+
+// render data to UI
+function renderWeather(data) {
+  // data structure: see OpenWeatherMap docs
+  const { name, sys, weather, main, wind, timezone } = data;
+  const w = weather && weather[0];
+
+  cityNameEl.textContent = `${name}, ${sys && sys.country ? sys.country : ''}`;
+  descEl.textContent = w ? (w.description || '').replace(/\b\w/g, s => s.toUpperCase()) : '';
+  tempEl.textContent = main ? Math.round(main.temp) : '—';
+  iconEl.src = w ? iconUrl(w.icon) : '';
+  iconEl.alt = w ? w.description : 'weather';
+  humidityEl.textContent = main ? main.humidity : '—';
+  windEl.textContent = wind ? (wind.speed + ' m/s') : '—';
+  sunriseEl.textContent = sys && sys.sunrise ? formatTime(sys.sunrise, timezone) : '—';
+  sunsetEl.textContent = sys && sys.sunset ? formatTime(sys.sunset, timezone) : '—';
+  localTimeEl.textContent = cityLocalTime(timezone);
+
+  showResult();
+  setStatus('Weather loaded.');
+}
+
+// main search
+async function doSearch() {
+  const q = cityInput.value.trim();
+  if (!q) {
+    setStatus('Please enter a city.', true);
+    return;
+  }
+  try {
+    const data = await fetchWeather(q);
+    renderWeather(data);
+  } catch (err) {
+    console.error(err);
+    setStatus(err.message || 'Failed to fetch weather.', true);
+  }
+}
+
+// events
+searchBtn.addEventListener('click', doSearch);
+cityInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') doSearch();
+});
+
+// quick demo: optional - load a default city on start
+// (uncomment to auto-load)
+// window.addEventListener('load', () => { cityInput.value = 'Mumbai'; doSearch(); });
+
+  </script>
+</body>
+</html>
 
