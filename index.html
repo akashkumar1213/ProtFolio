@@ -1,374 +1,292 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Weather App</title>
-  <!-- <link rel="stylesheet" href="weather.css" /> -->
-  <style>
-    :root {
-  --bg: #071026;
-  --card: #0b1220;
-  --accent: #06b6d4;
-  --muted: #9aa4b2;
-  --white: #e6eef6;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
-}
-
-* {
-  box-sizing: border-box
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  background: #002252;
-  color: var(--white)
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 28px
-}
-
-.card {
-  width: min(920px, 96%);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.top {
-  display: flex;
-  gap: 12px;
-  align-items: center
-}
-
-.logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  object-fit: cover
-}
-
-h1 {
-  margin: 0;
-  font-size: 20px
-}
-
-.lead {
-  margin: 2px 0 8px;
-  color: var(--muted)
-}
-
-.search {
-  display: flex;
-  gap: 8px;
-  margin-top: 14px
-}
-
-.search input {
-  flex: 1;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: transparent;
-  color: inherit;
-  outline: none
-}
-
-.btn {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 0;
-  background: linear-gradient(90deg, var(--accent), #7c3aed);
-  color: white;
-  font-weight: 600;
-  cursor: pointer
-}
-
-.status {
-  margin-top: 12px;
-  color: var(--muted)
-}
-
-.hidden {
-  display: none
-}
-
-.result {
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.03)
-}
-
-.row {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start
-}
-
-.left {
-  flex: 1
-}
-
-.right {
-  width: 240px
-}
-
-.city {
-  font-size: 18px
-}
-
-.meta {
-  color: var(--muted);
-  margin-bottom: 8px
-}
-
-.temp-row {
-  display: flex;
-  align-items: center;
-  gap: 12px
-}
-
-.temp {
-  font-family: ui-monospace, monospace;
-  font-size: 48px;
-  font-weight: 700
-}
-
-.icon-wrap img {
-  width: 88px;
-  height: 88px
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-  color: var(--muted)
-}
-
-.map {
-  height: 140px;
-  background: rgba(255, 255, 255, 0.02);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  color: var(--muted)
-}
-
-.small {
-  font-size: 13px;
-  color: var(--muted)
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0
-}
-
-@media (max-width:720px) {
-  .row {
-    flex-direction: column
-  }
-
-  .right {
-    width: 100%
-  }
-}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protfolio</title>
+    <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
+    <link rel="stylesheet" href="Protfolio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Miranda+Sans:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-  <main class="card" role="main" aria-labelledby="title">
-    <header class="top">
-      <!-- User-uploaded image used as logo/header image -->
+    <!-- Navbar  -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="navbar-logo">ProtFolio</a>
+            <button class="navbar-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="navbar-menu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#project">Projects</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
 
-      <div>
-        <h1 id="title">Day 1: Weather App</h1>
-        <p class="lead">Fetch real-time weather for any city using an API (OpenWeatherMap).</p>
-      </div>
-    </header>
+    <!-- Home -->
+    <section class="home" id="home">
+        <div class="container">
+            <div class="text">
+                <div class="text1">
+                    <h1>Hi , I'm <span>Akash</span></h1>
+                    <h2>Web Developer</h2>
+                    <p>I build exceptional digital experiences with moder web technologies. Focused on creating
+                        bueautiful,functional,and user-friendly applications.</p>
+                    <div class="btn">
+                        <button class="btn1"><a href="https://wa.me/+917838413689">Contact Me</a>
+                        </button>
+                        <button class="btn2">
+                            <a href="#project">View Work</a></button>
+                    </div>
+                </div>
+                <div class="img">
+                    <img src="C:\Users\Welcome\OneDrive\Pictures\Screenshots\Screenshot 2026-03-03 220736.png"
+                        alt="image">
+                </div>
 
-    <section class="search">
-      <label class="sr-only" for="city">City</label>
-      <input id="city" type="search" placeholder="Enter city (e.g. London)" autocomplete="off" />
-      <button id="searchBtn" class="btn">Search</button>
+            </div>
+
+        </div>
+    </section>
+    <!-- About us  -->
+    <section id="about">
+        <div class="about">
+            <div class="about1">
+                <h2>About <span>Me</span></h2>
+                <div class="about2">
+                    <div class="img2">
+                        <img src="C:\Users\Welcome\OneDrive\Pictures\Screenshots\Screenshot 2026-03-03 220736.png"
+                            alt="image">
+                    </div>
+                    <div class="abcontent">
+                        <p class="p"> Who I Am</P><br>
+                        <p class="p1">Motivated and detail-oriented fresher with basic knowledge of HTML, CSS, and
+                            JavaScript. Passionate about building responsive, user-friendly web applications. Seeking an
+                            opportunity to start a career in web  developer role to apply technical skills and grow
+                            professionally.</p>
+                        <div class="bo">
+                            <div class="edu">
+                                <div class="icon">
+                                    <i class="fa-solid fa-graduation-cap" style="color: rgb(177, 151, 252);"></i>
+                                    <p>Education</p>
+                                </div><br>
+                                <p>12th in Science <br>
+                                    BSEB PATNA, 2022</p>
+                            </div>
+                            <div class="skil">
+                                <div class="icon">
+                                    <i class="fa-solid fa-briefcase" style="color: rgb(59, 227, 127);"></i>
+                                    <p>Education</p>
+                                </div><br>
+                                <p>B.A. in ARTS(sem1) <br>
+                                    BRABU University,2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section id="result" class="result hidden" aria-live="polite">
-      <div class="row">
-        <div class="left">
-          <h2 id="cityName">—</h2>
-          <div class="meta">
-            <span id="desc">—</span> · <span id="localTime">—</span>
-          </div>
-          <div class="temp-row">
-            <div class="temp">
-              <span id="temp">—</span><small>°C</small>
+    <!-- skills -->
+    <section class="skills" id="skills">
+        <div class="skil">
+            <h2>My <span>SKILLS</span></h2>
+            <div class="skillbox">
+                <div class="skill0 1"><i class="fa-brands fa-html5"></i>
+                    <h3>html</h3>
+                </div>
+                <div class="skill0 2"><i class="fa-brands fa-css"></i>
+                    <h3>CSS</h3>
+                </div>
+                <div class="skill0 3"><i class="fa-brands fa-js"></i>
+                    <h3>JS</h3>
+                </div>
+                <div class="skill0 4"><i class="fa-brands fa-bootstrap"></i>
+                    <h3>Bootstrap</h3>
+                </div>
             </div>
-            <div class="icon-wrap">
-              <img id="icon" src="" alt="" />
+            <div class="skillbox">
+                <div class="skill0 5"><i class="fa-brands fa-wordpress"></i>
+                    <h3>Wordpress</h3>
+                </div>
+                <div class="skill0 6"><i class="fa-brands fa-java"></i>
+                    <h3>Java</h3>
+                </div>
+                <div class="skill0 7"><i class="fa-brands fa-java"></i>
+                    <h3>Java</h3>
+                </div>
+                <div class="skill0 8"><i class="fa-brands fa-java"></i>
+                    <h3>Java</h3>
+                </div>
             </div>
-          </div>
-
-          <div class="stats">
-            <div>Humidity: <strong id="humidity">—</strong>%</div>
-            <div>Wind: <strong id="wind">—</strong> m/s</div>
-            <div>Sunrise: <strong id="sunrise">—</strong></div>
-            <div>Sunset: <strong id="sunset">—</strong></div>
-          </div>
         </div>
-
-        <div class="right">
-          <div id="mapPlaceholder" class="map">Map / extra content</div>
-        </div>
-      </div>
     </section>
 
-    <div id="status" class="status muted">Enter a city and press Search.</div>
 
-    <details style="margin-top:14px">
-      <summary>How it works (short)</summary>
-      <p class="small">`script.js` builds the API URL, fetches the current weather JSON, extracts relevant fields and updates the DOM. It uses `async/await`, handles common errors, and formats times using the timezone offset returned by the API.</p>
-    </details>
-  </main>
+    <!--  Projects ------  -->
+    <section class="project" id="project">
+        <div class="pro">
+            <h1>My <span>Projects</span></h1>
+            <div class="probox">
+                <div class="pro0 1"><img
+                        src="https://img.freepik.com/free-vector/modern-stylish-problem-solving-faq-symbol-background-design_1017-58258.jpg?semt=ais_hybrid&w=740&q=80"
+                        alt="Quiz Website">
+                    <div class="protext">
+                        <h2>Quiz Website</h2>
+                        <p class="p">Developed a dynamic quiz app using HTML, CSS, and JavaScript.</p>
+                        <button class="btn1"> <a href="https://akashkumar1213.github.io/html-Quiz/" target="_blank">click</a></button>
+                        <!-- <button class="btn1">click</button>
+                        <button class="btn1">click</button> -->
+                        <br><br>
+                        <a href="https://akashkumar1213.github.io/html-Quiz/" target="_blank">Live demo</a>
+                    </div>
+                </div>
+                <div class="pro0 2"><img
+                        src="https://www.easytechguides.com/top-img/how-to-create-a-qr-code-for-a-website-or-webpage.png"
+                        alt="Qr-Code">
+                    <div class="protext">
+                        <h2>Create Qr-Code</h2>
+                        <p class="p">Developed a QR code generator using HTML, CSS, and JavaScript.</p>
+                        <button class="btn1"><a
+                                href="https://akashkumar1213.github.io/Create-Qr-code/" target="_blank">click</a></button>
+                        <!-- <button class="btn1">click</button>
+                        <button class="btn1">click</button> -->
+                        <br><br>
+                        <a href="https://akashkumar1213.github.io/Create-Qr-code/" target="_blank">Live demo</a>
+                    </div>
+                </div>
+                <div class="pro0 3"><img
+                        src="https://play-lh.googleusercontent.com/2iYYr63sbUkI40lWaxYRy7a0PhgVHyGmIHqhDXxHivVP_nMC8NCoCGOA1LVMf_V1Pg=w526-h296-rw"
+                        alt="Weather">
+                    <div class="protext">
+                        <h2>Weather Dashboard</h2>
+                        <p class="p">Real-time weather application with 5-day forecasts, location search, and
+                            interactive maps.</p>
+                        <button class="btn1"><a href="https://akashkumar1213.github.io/weather/" target="_blank">click</a></button>
+                        <!-- <button class="btn1">click</button>
+                        <button class="btn1">click</button> -->
+                        <br><br>
+                        <a href="https://akashkumar1213.github.io/weather/" target="_blank">Live demo</a>
+                    </div>
 
-  <script>
-    // Day 1 — Weather App
-// Replace with your OpenWeatherMap API key:
-const API_KEY = '7bf3f09e01f4eabee9483d21e48df0ed'; // <-- get a free key at openweathermap.org
-const ENDPOINT = 'https://api.openweathermap.org/data/2.5/weather';
+                </div>
 
-// DOM refs
-const cityInput = document.getElementById('city');
-const searchBtn = document.getElementById('searchBtn');
-const statusEl = document.getElementById('status');
+            </div>
+        </div>
+    </section>
 
-const resultSection = document.getElementById('result');
-const cityNameEl = document.getElementById('cityName');
-const descEl = document.getElementById('desc');
-const tempEl = document.getElementById('temp');
-const iconEl = document.getElementById('icon');
-const humidityEl = document.getElementById('humidity');
-const windEl = document.getElementById('wind');
-const sunriseEl = document.getElementById('sunrise');
-const sunsetEl = document.getElementById('sunset');
-const localTimeEl = document.getElementById('localTime');
+    <!-- contact -------------- -->
+    <section class="contact" id="contact">
+        <div class="cont">
+            <h2>Get In <span>Touch</span></h2>
+            <div class="cont1">
+                <div class="cont2">
+                    <h3 class="h3">Contact Information</h3><br>
+                    <p class="pp1">Feel free to reach out to me for project inquiries, collaborations, or just to say
+                        hello. I'll get back to you as soon as possible.</p>
+                    <div class="contic">
+                        <div class="email">
+                            <div class="ico1"><i class="fa-solid fa-envelope" style="color: rgb(26, 101, 236);"></i>
+                            </div>
+                            <div class="icot">
+                                <h3 class="h33">Email</h3>
+                                <p class="pp">akashkumar746285@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="phone">
+                            <div class="ico1"><i class="fa-solid fa-phone-flip" style="color: rgb(26, 101, 236);"></i>
+                            </div>
+                            <div class="icot">
+                                <h3 class="h33">Phone</h3>
+                                <p class="pp">+91 7462852666</p>
+                            </div>
+                        </div>
+                        <div class="locat">
+                            <div class="ico1"><i class="fa-solid fa-location-dot" style="color: rgb(26, 101, 236);"></i>
+                            </div>
+                            <div class="icot">
+                                <h3 class="h33">Location</h3>
+                                <p class="pp">Faridabad,Hr</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="follow">
+                        <h2 class="fol">Follow Me</h2>
+                        <div class="follin">
+                            <ul class="f">
+                                <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
 
-// helpers
-function setStatus(msg, isError = false) {
-  statusEl.textContent = msg;
-  statusEl.style.color = isError ? '#ffbaba' : '';
-}
+                                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
 
-function showResult() {
-  resultSection.classList.remove('hidden');
-}
-function hideResult() {
-  resultSection.classList.add('hidden');
-}
+                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont3">
+                    <div class="form">
+                        <form action="#">
+                            <div class="form1">
+                                <label for="name" class="name">Name</label><input type="text" name="" id="inp">
+                            </div>
+                            <div class="form1">
+                                <label for="email" class="name">Email</label><input type="email" name="" id="inp">
+                            </div>
+                            <div class="form1">
+                                <label for="subject" class="name">Subject</label><input type="text" name="" id="inp">
+                            </div>
+                            <div class="form1 form2">
+                                <label for="mess" class="name">Message</label><textarea name="" id="inp1"></textarea>
+                                <!-- <input type="text" name="" id="inp"> -->
+                            </div>
+                            <button type="submit" class="sub">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-// format unix timestamp + timezone offset to local time string
-function formatTime(tsSeconds, tzOffsetSeconds) {
-  // tsSeconds is in UTC, tzOffsetSeconds is offset from UTC in seconds
-  const d = new Date((tsSeconds + tzOffsetSeconds) * 1000);
-  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
+        </div>
+    </section>
 
-// format local time in city using timezone offset
-function cityLocalTime(tzOffsetSeconds) {
-  const nowUtcSec = Math.floor(Date.now() / 1000);
-  return formatTime(nowUtcSec, tzOffsetSeconds);
-}
+    <!-- footer ----- -->
 
-// build icon URL from OpenWeatherMap
-function iconUrl(iconCode) {
-  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-}
+    <footer>
+        <div class="footer">
+            <div class="foot1">
+                <a href="#home">
+                    <h2 class="hh">ProtFolio</h2>
+                </a>
+            </div>
+            <div class="foot2">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Project</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">
+            <p class="copy">copyright@2026</p>
+        </div>
+    </footer>
 
-// fetch weather for a city
-async function fetchWeather(city) {
-  try {
-    setStatus('Loading…');
-    hideResult();
-    const url = `${ENDPOINT}?q=${encodeURIComponent(city)}&units=metric&appid=${API_KEY}`;
-    const res = await fetch(url);
-    if (!res.ok) {
-      if (res.status === 404) throw new Error('City not found');
-      throw new Error(`Network error ${res.status}`);
-    }
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    throw err;
-  }
-} 
 
-// render data to UI
-function renderWeather(data) {
-  // data structure: see OpenWeatherMap docs
-  const { name, sys, weather, main, wind, timezone } = data;
-  const w = weather && weather[0];
 
-  cityNameEl.textContent = `${name}, ${sys && sys.country ? sys.country : ''}`;
-  descEl.textContent = w ? (w.description || '').replace(/\b\w/g, s => s.toUpperCase()) : '';
-  tempEl.textContent = main ? Math.round(main.temp) : '—';
-  iconEl.src = w ? iconUrl(w.icon) : '';
-  iconEl.alt = w ? w.description : 'weather';
-  humidityEl.textContent = main ? main.humidity : '—';
-  windEl.textContent = wind ? (wind.speed + ' m/s') : '—';
-  sunriseEl.textContent = sys && sys.sunrise ? formatTime(sys.sunrise, timezone) : '—';
-  sunsetEl.textContent = sys && sys.sunset ? formatTime(sys.sunset, timezone) : '—';
-  localTimeEl.textContent = cityLocalTime(timezone);
-
-  showResult();
-  setStatus('Weather loaded.');
-}
-
-// main search
-async function doSearch() {
-  const q = cityInput.value.trim();
-  if (!q) {
-    setStatus('Please enter a city.', true);
-    return;
-  }
-  try {
-    const data = await fetchWeather(q);
-    renderWeather(data);
-  } catch (err) {
-    console.error(err);
-    setStatus(err.message || 'Failed to fetch weather.', true);
-  }
-}
-
-// events
-searchBtn.addEventListener('click', doSearch);
-cityInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') doSearch();
-});
-
-// quick demo: optional - load a default city on start
-// (uncomment to auto-load)
-// window.addEventListener('load', () => { cityInput.value = 'Mumbai'; doSearch(); });
-
-  </script>
+    <script src="Protfolio.js"></script>
 </body>
-</html>
 
+</html>
